@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><title>Confirm Delete</title></head>
+<body>
+<h1>Confirm Delete</h1>
+<p>Are you sure you want to delete this [[${entityType}]] with ID [[${entityId}]]?</p>
+
+<form th:with="pluralUrl=${entityType == 'property'} ? 'properties' : ${entityType} + 's'"
+      th:action="@{'/' + ${pluralUrl} + '/' + ${entityId} + '/delete'}" method="post">
+    <button type="submit">Yes, Delete</button>
+</form>
+
+<a th:with="pluralUrl=${entityType == 'property'} ? 'properties' : ${entityType} + 's'"
+   th:href="@{'/' + ${pluralUrl}}">Cancel</a>
+</body>
+</html>

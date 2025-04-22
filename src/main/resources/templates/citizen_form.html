@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Citizen Form</title>
+</head>
+<body>
+
+<h1 th:if="${citizen.citizenID != null}">Edit Citizen</h1>
+<h1 th:unless="${citizen.citizenID != null}">Register New Citizen</h1>
+
+<!-- Форма для редагування -->
+<form th:if="${citizen.citizenID != null}"
+      th:action="@{'/citizens/' + ${citizen.citizenID}}"
+      th:object="${citizen}" method="post">
+    <div>
+        Name: <input th:field="*{name}" required/>
+    </div>
+    <div>
+        Date of Birth: <input type="date" th:field="*{dateOfBirth}" required/>
+    </div>
+    <div>
+        Age: <input type="number" th:field="*{age}" min="0" required/>
+    </div>
+    <div>
+        Address: <input th:field="*{address}" required/>
+    </div>
+    <div>
+        Contact Info: <input th:field="*{contactInformation}"/>
+    </div>
+    <div>
+        Family Details: <textarea th:field="*{familyDetails}"></textarea>
+    </div>
+    <div>
+        Registered Online: <input type="checkbox" th:field="*{registeredOnline}"/>
+    </div>
+    <button type="submit">Update</button>
+    <a href="/citizens">Cancel</a>
+</form>
+
+<!-- Форма для створення -->
+<form th:unless="${citizen.citizenID != null}"
+      th:action="@{/citizens}"
+      th:object="${citizen}" method="post">
+    <div>
+        Name: <input th:field="*{name}" required/>
+    </div>
+    <div>
+        Date of Birth: <input type="date" th:field="*{dateOfBirth}" required/>
+    </div>
+    <div>
+        Age: <input type="number" th:field="*{age}" min="0" required/>
+    </div>
+    <div>
+        Address: <input th:field="*{address}" required/>
+    </div>
+    <div>
+        Contact Info: <input th:field="*{contactInformation}"/>
+    </div>
+    <div>
+        Family Details: <textarea th:field="*{familyDetails}"></textarea>
+    </div>
+    <div>
+        Registered Online: <input type="checkbox" th:field="*{registeredOnline}"/>
+    </div>
+    <button type="submit">Save</button>
+    <a href="/citizens">Cancel</a>
+</form>
+
+</body>
+</html>

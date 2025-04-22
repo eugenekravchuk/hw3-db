@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:if="${complaint.complaintID != null}">Edit Complaint</title>
+    <title th:unless="${complaint.complaintID != null}">New Complaint</title>
+</head>
+<body>
+
+<h1 th:if="${complaint.complaintID != null}">Edit Complaint</h1>
+<h1 th:unless="${complaint.complaintID != null}">File New Complaint</h1>
+
+<!-- Edit Form -->
+<form th:if="${complaint.complaintID != null}"
+      th:action="@{'/complaints/' + ${complaint.complaintID}}"
+      th:object="${complaint}" method="post">
+    <input type="hidden" th:field="*{complaintID}"/>
+
+    <div>
+        <label>Citizen ID:</label>
+        <input type="number" th:field="*{citizen.citizenID}" required/>
+    </div>
+    <div>
+        <label>Date Submitted:</label>
+        <input type="date" th:field="*{dateSubmitted}" required/>
+    </div>
+    <div>
+        <label>Category:</label>
+        <select th:field="*{category}" required>
+            <option value="">Select Category</option>
+            <option value="Noise">Noise Complaint</option>
+            <option value="Sanitation">Sanitation</option>
+            <option value="Infrastructure">Infrastructure</option>
+            <option value="Administrative">Administrative</option>
+            <option value="Other">Other</option>
+        </select>
+    </div>
+    <div>
+        <label>Description:</label>
+        <textarea th:field="*{description}" required></textarea>
+    </div>
+    <div>
+        <label>Status:</label>
+        <select th:field="*{status}" required>
+            <option value="Submitted">Submitted</option>
+            <option value="In Review">In Review</option>
+            <option value="In Progress">In Progress</option>
+            <option value="Resolved">Resolved</option>
+            <option value="Rejected">Rejected</option>
+        </select>
+    </div>
+    <div>
+        <label>Resolution Details:</label>
+        <textarea th:field="*{resolutionDetails}"></textarea>
+    </div>
+    <div>
+        <label>Urgency:</label>
+        <select th:field="*{urgency}" required>
+            <option value="Low">Low</option>
+            <option value="Medium">Medium</option>
+            <option value="High">High</option>
+            <option value="Critical">Critical</option>
+        </select>
+    </div>
+    <div>
+        <label>Process ID:</label>
+        <input type="number" th:field="*{processID}"/>
+    </div>
+    <button type="submit">Update Complaint</button>
+    <a href="/complaints">Cancel</a>
+</form>
+
+<!-- Create Form -->
+<form th:unless="${complaint.complaintID != null}"
+      th:action="@{/complaints}"
+      th:object="${complaint}" method="post">
+    <div>
+        <label>Citizen ID:</label>
+        <input type="number" th:field="*{citizen.citizenID}" required/>
+    </div>
+    <div>
+        <label>Date Submitted:</label>
+        <input type="date" th:field="*{dateSubmitted}" required th:value="${#temporals.format(#temporals.createToday(), 'yyyy-MM-dd')}"/>
+    </div>
+    <div>
+        <label>Category:</label>
+        <select th:field="*{category}" required>
+            <option value="">Select Category</option>
+            <option value="Noise">Noise Complaint</option>
+            <option value="Sanitation">Sanitation</option>
+            <option value="Infrastructure">Infrastructure</option>
+            <option value="Administrative">Administrative</option>
+            <option value="Other">Other</option>
+        </select>
+    </div>
+    <div>
+        <label>Description:</label>
+        <textarea th:field="*{description}" required></textarea>
+    </div>
+    <div>
+        <label>Status:</label>
+        <input type="text" th:field="*{status}" value="Submitted" readonly/>
+    </div>
+    <div>
+        <label>Urgency:</label>
+        <select th:field="*{urgency}" required>
+            <option value="Low">Low</option>
+            <option value="Medium">Medium</option>
+            <option value="High">High</option>
+            <option value="Critical">Critical</option>
+        </select>
+    </div>
+    <button type="submit">Submit Complaint</button>
+    <a href="/complaints">Cancel</a>
+</form>
+
+</body>
+</html>

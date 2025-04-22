@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:if="${property.propertyID != null}">Edit Property</title>
+    <title th:unless="${property.propertyID != null}">Add New Property</title>
+</head>
+<body>
+
+<h1 th:if="${property.propertyID != null}">Edit Property</h1>
+<h1 th:unless="${property.propertyID != null}">Add New Property</h1>
+
+<!-- Edit Form -->
+<form th:if="${property.propertyID != null}"
+      th:action="@{'/properties/' + ${property.propertyID}}"
+      th:object="${property}" method="post">
+    <input type="hidden" th:field="*{propertyID}"/>
+
+    <div>
+        <label>Citizen ID:</label>
+        <input type="number" th:field="*{citizen.citizenID}"/>
+    </div>
+    <div>
+        <label>Address:</label>
+        <input type="text" th:field="*{address}" required/>
+    </div>
+    <div>
+        <label>Property Type:</label>
+        <select th:field="*{propertyType}" required>
+            <option value="">Select Type</option>
+            <option value="Residential">Residential</option>
+            <option value="Commercial">Commercial</option>
+            <option value="Industrial">Industrial</option>
+            <option value="Agricultural">Agricultural</option>
+            <option value="Mixed-Use">Mixed-Use</option>
+        </select>
+    </div>
+    <div>
+        <label>Size (sq ft):</label>
+        <input type="text" th:field="*{size}" required/>
+    </div>
+    <div>
+        <label>Zoning Information:</label>
+        <input type="text" th:field="*{zoningInformation}"/>
+    </div>
+    <div>
+        <label>Valuation ($):</label>
+        <input type="number" th:field="*{valuation}" min="0" required/>
+    </div>
+    <div>
+        <label>Verified:</label>
+        <input type="checkbox" th:field="*{isVerified}"/>
+    </div>
+    <div>
+        <label>Ownership Change Date:</label>
+        <input type="date" th:field="*{ownershipChangeDate}"/>
+    </div>
+    <button type="submit">Update Property</button>
+    <a href="/properties">Cancel</a>
+</form>
+
+<!-- Create Form -->
+<form th:unless="${property.propertyID != null}"
+      th:action="@{/properties}"
+      th:object="${property}" method="post">
+    <div>
+        <label>Citizen ID:</label>
+        <input type="number" th:field="*{citizen.citizenID}"/>
+    </div>
+    <div>
+        <label>Address:</label>
+        <input type="text" th:field="*{address}" required/>
+    </div>
+    <div>
+        <label>Property Type:</label>
+        <select th:field="*{propertyType}" required>
+            <option value="">Select Type</option>
+            <option value="Residential">Residential</option>
+            <option value="Commercial">Commercial</option>
+            <option value="Industrial">Industrial</option>
+            <option value="Agricultural">Agricultural</option>
+            <option value="Mixed-Use">Mixed-Use</option>
+        </select>
+    </div>
+    <div>
+        <label>Size (sq ft):</label>
+        <input type="text" th:field="*{size}" required/>
+    </div>
+    <div>
+        <label>Zoning Information:</label>
+        <input type="text" th:field="*{zoningInformation}"/>
+    </div>
+    <div>
+        <label>Valuation ($):</label>
+        <input type="number" th:field="*{valuation}" min="0" required/>
+    </div>
+    <div>
+        <label>Verified:</label>
+        <input type="checkbox" th:field="*{isVerified}"/>
+    </div>
+    <div>
+        <label>Ownership Change Date:</label>
+        <input type="date" th:field="*{ownershipChangeDate}"/>
+    </div>
+    <button type="submit">Add Property</button>
+    <a href="/properties">Cancel</a>
+</form>
+
+</body>
+</html>
